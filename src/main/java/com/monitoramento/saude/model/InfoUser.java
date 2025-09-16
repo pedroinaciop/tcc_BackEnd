@@ -2,15 +2,13 @@ package com.monitoramento.saude.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.monitoramento.saude.dto.InfoUserDTO;
-import com.monitoramento.saude.dto.UserDTO;
 import com.monitoramento.saude.enums.NivelAtividadeFisica;
 import com.monitoramento.saude.enums.Sexo;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Setter
@@ -20,11 +18,11 @@ public class InfoUser {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(pattern = "dd/MM/yyyy", timezone = "America/Sao_Paulo")
-    private LocalDateTime dataRegistro;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataRegistro;
 
-    @JsonFormat(pattern = "dd/MM/yyyy", timezone = "America/Sao_Paulo")
-    private LocalDateTime dataNascimento;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataNascimento;
 
     @Column(length = 3)
     private Integer idade;
@@ -39,7 +37,9 @@ public class InfoUser {
     private String objetivo;
 
     @Column(length = 500)
-    private String alergiasIntolerancias;
+    private String alergias;
+
+    private String intolerancias;
 
     private String doencasPreExistentes;
 
@@ -53,32 +53,51 @@ public class InfoUser {
 
     private BigDecimal medidaTorax;
 
-    private BigDecimal medidaBraco;
+    private BigDecimal medidaBracoDireito;
+    private BigDecimal medidaBracoEsquerdo;
 
-    private BigDecimal medidaAntebraco;
+    private BigDecimal medidaAntebracoDireito;
+    private BigDecimal medidaAntebracoEsquerdo;
 
-    private BigDecimal medidaCoxa;
+    private BigDecimal medidaCoxaDireita;
+    private BigDecimal medidaCoxaEsquerda;
 
-    private BigDecimal medidaPanturrilha;
+    private BigDecimal medidaPanturrilhaDireita;
+    private BigDecimal medidaPanturrilhaEsquerda;
 
-    public InfoUser(LocalDateTime dataRegistro, LocalDateTime dataNascimento, Integer idade, Sexo sexoBiologico, NivelAtividadeFisica nivelAtividadeFisica, String objetivo, String alergiasIntolerancias, String doencasPreExistentes, BigDecimal pesoAtual, BigDecimal pesoDesejado, BigDecimal medidaCintura, BigDecimal medidaQuadril, BigDecimal medidaTorax, BigDecimal medidaBraco, BigDecimal medidaAntebraco, BigDecimal medidaCoxa, BigDecimal medidaPanturrilha) {
+    private BigDecimal altura;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
+    private LocalDateTime dataAlteracao;
+
+    public InfoUser() {}
+
+    public InfoUser(Long id, LocalDate dataRegistro, LocalDate dataNascimento, Integer idade, Sexo sexoBiologico, NivelAtividadeFisica nivelAtividadeFisica, String objetivo, String alergias, String intolerancias, String doencasPreExistentes, BigDecimal pesoAtual, BigDecimal pesoDesejado, BigDecimal medidaCintura, BigDecimal medidaQuadril, BigDecimal medidaTorax, BigDecimal medidaBracoDireito, BigDecimal medidaBracoEsquerdo, BigDecimal medidaAntebracoDireito, BigDecimal medidaAntebracoEsquerdo, BigDecimal medidaCoxaDireita, BigDecimal medidaCoxaEsquerda, BigDecimal medidaPanturrilhaDireita, BigDecimal medidaPanturrilhaEsquerda, BigDecimal altura, LocalDateTime dataAlteracao) {
+        this.id = id;
         this.dataRegistro = dataRegistro;
         this.dataNascimento = dataNascimento;
         this.idade = idade;
         this.sexoBiologico = sexoBiologico;
         this.nivelAtividadeFisica = nivelAtividadeFisica;
         this.objetivo = objetivo;
-        this.alergiasIntolerancias = alergiasIntolerancias;
+        this.alergias = alergias;
+        this.intolerancias = intolerancias;
         this.doencasPreExistentes = doencasPreExistentes;
         this.pesoAtual = pesoAtual;
         this.pesoDesejado = pesoDesejado;
         this.medidaCintura = medidaCintura;
         this.medidaQuadril = medidaQuadril;
         this.medidaTorax = medidaTorax;
-        this.medidaBraco = medidaBraco;
-        this.medidaAntebraco = medidaAntebraco;
-        this.medidaCoxa = medidaCoxa;
-        this.medidaPanturrilha = medidaPanturrilha;
+        this.medidaBracoDireito = medidaBracoDireito;
+        this.medidaBracoEsquerdo = medidaBracoEsquerdo;
+        this.medidaAntebracoDireito = medidaAntebracoDireito;
+        this.medidaAntebracoEsquerdo = medidaAntebracoEsquerdo;
+        this.medidaCoxaDireita = medidaCoxaDireita;
+        this.medidaCoxaEsquerda = medidaCoxaEsquerda;
+        this.medidaPanturrilhaDireita = medidaPanturrilhaDireita;
+        this.medidaPanturrilhaEsquerda = medidaPanturrilhaEsquerda;
+        this.altura = altura;
+        this.dataAlteracao = dataAlteracao;
     }
 
     public InfoUser(InfoUserDTO dados) {
@@ -88,16 +107,22 @@ public class InfoUser {
         sexoBiologico = dados.sexoBiologico();
         nivelAtividadeFisica = dados.nivelAtividadeFisica();
         objetivo = dados.objetivo();
-        alergiasIntolerancias = dados.alergiasIntolerancias();
+        alergias = dados.alergias();
+        intolerancias = dados.intolerancias();
         doencasPreExistentes = dados.doencasPreExistentes();
         pesoAtual = dados.pesoAtual();
         pesoDesejado = dados.pesoDesejado();
         medidaCintura = dados.medidaCintura();
         medidaQuadril = dados.medidaQuadril();
         medidaTorax = dados.medidaQuadril();
-        medidaBraco = dados.medidaBraco();
-        medidaAntebraco = dados.medidaAntebraco();
-        medidaCoxa = dados.medidaCoxa();
-        medidaPanturrilha = dados.medidaPanturrilha();
+        medidaBracoDireito = dados.medidaBracoDireito();
+        medidaBracoEsquerdo = dados.medidaBracoEsquerdo();
+        medidaAntebracoDireito = dados.medidaAntebracoDireito();
+        medidaAntebracoEsquerdo = dados.medidaAntebracoEsquerdo();
+        medidaCoxaDireita = dados.medidaCoxaDireita();
+        medidaCoxaEsquerda = dados.medidaCoxaEsquerda();
+        medidaPanturrilhaDireita = dados.medidaPanturrilhaDireita();
+        medidaPanturrilhaEsquerda = dados.medidaPanturrilhaEsquerda();
+        altura = dados.altura();
     }
 }

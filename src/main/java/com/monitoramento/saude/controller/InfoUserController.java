@@ -14,20 +14,20 @@ import java.util.List;
 public class InfoUserController {
 
     @Autowired
-    private InfoUserService service;
+    public InfoUserService service;
 
     @GetMapping("/info/usuarios")
-    private List<InfoUser> findAllInfoUsers() {
+    public List<InfoUser> findAllInfoUsers() {
         return service.findAllInfoUsers();
     }
 
     @Transactional
-    @PostMapping("cadastros/info/usuarios/novo")
-    private void createInfoUser(@RequestBody InfoUserDTO dados) {
+    @PostMapping("/cadastros/info/usuarios/novo")
+    public void createInfoUser(@RequestBody InfoUserDTO dados) {
         service.createInfoUser(dados);
     }
 
-    @DeleteMapping("delete/info/usuarios/:id")
+    @DeleteMapping("info/usuarios/:id")
     public void deleteInfoUser(@PathVariable Long id ) {
         service.deleteInfoUser(id);
     }
