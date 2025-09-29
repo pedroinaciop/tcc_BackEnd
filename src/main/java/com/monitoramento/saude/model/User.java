@@ -3,9 +3,12 @@ package com.monitoramento.saude.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.monitoramento.saude.dto.UserDTO;
+import com.monitoramento.saude.enums.NivelAtividadeFisica;
+import com.monitoramento.saude.enums.Sexo;
 import com.monitoramento.saude.enums.UserRole;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
