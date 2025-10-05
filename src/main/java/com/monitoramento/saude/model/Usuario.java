@@ -3,13 +3,11 @@ package com.monitoramento.saude.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.monitoramento.saude.dto.UserDTO;
-import com.monitoramento.saude.enums.NivelAtividadeFisica;
-import com.monitoramento.saude.enums.Sexo;
 import com.monitoramento.saude.enums.UserRole;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,12 +18,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Setter
 @Getter
-@Entity(name = "usuarios")
-@EqualsAndHashCode(of = "usuario_id")
+@Entity(name = "usuario")
+@EqualsAndHashCode(of = "id")
 //UserDetails, interface que nos auxilia na administração dos usuários.
-public class User implements UserDetails {
+public class Usuario implements UserDetails {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long usuario_id;
+    private Long id;
 
     @Column(length = 60, nullable = false)
     private String nomeCompleto;
@@ -53,10 +51,19 @@ public class User implements UserDetails {
     @Column(length = 60, updatable = false)
     private String usuarioCriacao;
 
-    public User() {}
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Medidas> medidas = new ArrayList<>();
 
-    public User(Long usuario_id, String nomeCompleto, String email, String senha, UserRole regra, LocalDateTime dataUpdate, String usuarioUpdate, LocalDateTime dataCriacao, String usuarioCriacao) {
-        this.usuario_id = usuario_id;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Refeicao> refeicao = new ArrayList<>();
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private InfoUsuario infoUser;
+
+    public Usuario() {}
+
+    public Usuario(Long id, String nomeCompleto, String email, String senha, UserRole regra, LocalDateTime dataUpdate, String usuarioUpdate, LocalDateTime dataCriacao, String usuarioCriacao) {
+        this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.email = email;
         this.senha = senha;
@@ -67,8 +74,8 @@ public class User implements UserDetails {
         this.usuarioCriacao = usuarioCriacao;
     }
 
-    public User(UserDTO dados) {
-        this.usuario_id = dados.usuario_id();
+    public Usuario(UserDTO dados) {
+        this.id = dados.usuario_id();
         this.nomeCompleto = dados.nomeCompleto();
         this.email = dados.email();
         this.senha = dados.senha();
@@ -78,7 +85,7 @@ public class User implements UserDetails {
         this.dataCriacao = dados.dataCriacao();
     }
 
-    public User(String fullName, String login, String encryptedPassword, UserRole role, LocalDateTime createDate) {
+    public Usuario(String fullName, String login, String encryptedPassword, UserRole role, LocalDateTime createDate) {
         this.nomeCompleto = fullName;
         this.email = login;
         this.senha = encryptedPassword;
@@ -87,7 +94,7 @@ public class User implements UserDetails {
     }
 
     public Long getUsuario_id() {
-        return usuario_id;
+        return id;
     }
 
     public String getNomeCompleto() {

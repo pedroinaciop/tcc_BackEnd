@@ -18,6 +18,10 @@ public class Refeicao {
     @Enumerated(EnumType.STRING)
     private TipoRefeicao tipoRefeicao;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario")
+    private Usuario usuario;
+
     @OneToMany(mappedBy = "refeicao", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemAlimentos> alimentos = new ArrayList<>();
+    private List<Alimento> alimentos = new ArrayList<>();
 }

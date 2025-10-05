@@ -1,6 +1,6 @@
 package com.monitoramento.saude.enums;
 
-public enum Unidade {
+public enum UnidadeAlimento {
     GRAMAS("g"),
     MILIGRAMAS("mg"),
     QUILOS("kg"),
@@ -14,7 +14,7 @@ public enum Unidade {
 
     private final String simbolo;
 
-    Unidade(String simbolo) {
+    UnidadeAlimento(String simbolo) {
         this.simbolo = simbolo;
     }
 }

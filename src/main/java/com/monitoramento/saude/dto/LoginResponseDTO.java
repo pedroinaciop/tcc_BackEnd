@@ -1,4 +1,4 @@
 package com.monitoramento.saude.dto;
 
-public record LoginResponseDTO(String user, String token) {
+public record LoginResponseDTO(String user, String token, Long id_usuario) {
 }

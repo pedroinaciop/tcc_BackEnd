@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity(name = "info_usuario")
-public class InfoUser {
+public class InfoUsuario {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -47,9 +47,13 @@ public class InfoUser {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
     private LocalDateTime dataRegistro;
 
-    public InfoUser() {}
+    @OneToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
-    public InfoUser(Long id, LocalDateTime dataRegistro, LocalDate dataNascimento, Integer idade, Sexo sexoBiologico, NivelAtividadeFisica nivelAtividadeFisica, String objetivo, String alergias, String intolerancias, String doencasPreExistentes, LocalDateTime dataAlteracao) {
+    public InfoUsuario() {}
+
+    public InfoUsuario(Long id, LocalDateTime dataRegistro, LocalDate dataNascimento, Integer idade, Sexo sexoBiologico, NivelAtividadeFisica nivelAtividadeFisica, String objetivo, String alergias, String intolerancias, String doencasPreExistentes, LocalDateTime dataAlteracao) {
         this.id = id;
         this.dataRegistro = dataRegistro;
         this.dataNascimento = dataNascimento;
@@ -63,7 +67,7 @@ public class InfoUser {
         this.dataAlteracao = dataAlteracao;
     }
 
-    public InfoUser(InfoUserDTO dados) {
+    public InfoUsuario(InfoUserDTO dados) {
         dataRegistro = dados.dataRegistro();
         dataNascimento = dados.dataNascimento();
         idade = dados.idade();
