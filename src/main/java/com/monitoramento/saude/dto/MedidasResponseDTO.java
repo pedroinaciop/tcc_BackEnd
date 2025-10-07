@@ -1,14 +1,18 @@
 package com.monitoramento.saude.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.monitoramento.saude.model.Usuario;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-public record MedidasDTO(
+public record MedidasResponseDTO(
         Long id,
-
-        @JsonFormat(pattern = "yyyy-MM-dd")
+        @JsonFormat(pattern = "dd/MM/yyyy")
         LocalDate dataRegistro,
 
         BigDecimal pesoAtual,
@@ -22,9 +26,6 @@ public record MedidasDTO(
         BigDecimal medidaBracoDireito,
         BigDecimal medidaBracoEsquerdo,
 
-        BigDecimal medidaAntebracoDireito,
-        BigDecimal medidaAntebracoEsquerdo,
-
         BigDecimal medidaCoxaDireita,
         BigDecimal medidaCoxaEsquerda,
 
@@ -34,6 +35,9 @@ public record MedidasDTO(
         BigDecimal altura,
 
         @JsonFormat(pattern = "dd/MM/yyyy")
-        LocalDateTime dataAlteracao
+        LocalDateTime dataAlteracao,
+
+        @JsonIgnore
+        Usuario usuario
 ) {
 }

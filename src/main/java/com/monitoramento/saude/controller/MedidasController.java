@@ -1,39 +1,41 @@
 package com.monitoramento.saude.controller;
 
-import com.monitoramento.saude.dto.MedidasDTO;
+import com.monitoramento.saude.dto.MedidasRequestDTO;
+import com.monitoramento.saude.dto.MedidasResponseDTO;
 import com.monitoramento.saude.model.Medidas;
-import com.monitoramento.saude.service.RegistroSaudeService;
+import com.monitoramento.saude.service.MedidasService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/")
 public class MedidasController {
 
     @Autowired
-    public RegistroSaudeService service;
+    public MedidasService service;
 
-    @GetMapping("/registro/saude/{id}")
-    public MedidasDTO findRegistroSaudeById(@PathVariable("id") Long id) {
-        return service.findRegistroSaudeById(id);
+    @GetMapping("/medida/{id}")
+    public MedidasResponseDTO findMedidasById(@PathVariable("id") Long id) {
+        return service.findMedidasById(id);
     }
 
-    @GetMapping("/registro/saude")
-    public List<Medidas> findAllRegistroSaude() {
-        return service.findAllRegistroSaude();
-    }
-
-    @Transactional
-    @PostMapping("/cadastros/registro/saude/novo")
-    public void createRegistroSaude(@RequestBody MedidasDTO dados) {
-        service.createRegistroSaude(dados);
+    @GetMapping("/medidas/{id}")
+    public List<MedidasResponseDTO> findAllMedidasByUsuarioId(@PathVariable("id") Long id) {
+        return service.findAllMedidasByUsuarioId(id);
     }
 
     @Transactional
-    @DeleteMapping("/registro/saude/{id}")
-    public void deleteRegistroSaude(@PathVariable("id") Long id ) {
-        service.deleteRegistroSaude(id);
+    @PostMapping("/cadastros/medida/novo")
+    public void createMedida(@RequestBody MedidasRequestDTO dados) {
+        service.createMedida(dados);
+    }
+
+    @Transactional
+    @DeleteMapping("/medida/{id}")
+    public void deleteMedida(@PathVariable("id") Long id ) {
+        service.deleteMedida(id);
     }
 }

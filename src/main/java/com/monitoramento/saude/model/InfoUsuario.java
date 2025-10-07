@@ -1,8 +1,9 @@
 package com.monitoramento.saude.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.monitoramento.saude.enums.NivelAtividadeFisica;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.monitoramento.saude.dto.InfoUserDTO;
+import com.monitoramento.saude.dto.InfoUserRequestDTO;
 import com.monitoramento.saude.enums.Sexo;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
@@ -17,7 +18,7 @@ public class InfoUsuario {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
 
     @Column(length = 3)
@@ -49,11 +50,12 @@ public class InfoUsuario {
 
     @OneToOne
     @JoinColumn(name = "usuario_id")
+    @JsonIgnore
     private Usuario usuario;
 
     public InfoUsuario() {}
 
-    public InfoUsuario(Long id, LocalDateTime dataRegistro, LocalDate dataNascimento, Integer idade, Sexo sexoBiologico, NivelAtividadeFisica nivelAtividadeFisica, String objetivo, String alergias, String intolerancias, String doencasPreExistentes, LocalDateTime dataAlteracao) {
+    public InfoUsuario(Long id, LocalDateTime dataRegistro, LocalDate dataNascimento, Integer idade, Sexo sexoBiologico, NivelAtividadeFisica nivelAtividadeFisica, String objetivo, String alergias, String intolerancias, String doencasPreExistentes, LocalDateTime dataAlteracao, Usuario usuario) {
         this.id = id;
         this.dataRegistro = dataRegistro;
         this.dataNascimento = dataNascimento;
@@ -65,9 +67,10 @@ public class InfoUsuario {
         this.intolerancias = intolerancias;
         this.doencasPreExistentes = doencasPreExistentes;
         this.dataAlteracao = dataAlteracao;
+        this.usuario = usuario;
     }
 
-    public InfoUsuario(InfoUserDTO dados) {
+    public InfoUsuario(InfoUserRequestDTO dados) {
         dataRegistro = dados.dataRegistro();
         dataNascimento = dados.dataNascimento();
         idade = dados.idade();
@@ -77,5 +80,6 @@ public class InfoUsuario {
         alergias = dados.alergias();
         intolerancias = dados.intolerancias();
         doencasPreExistentes = dados.doencasPreExistentes();
+        usuario = dados.usuario();
     }
 }
