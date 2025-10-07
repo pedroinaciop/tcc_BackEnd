@@ -1,6 +1,7 @@
 package com.monitoramento.saude.model;
 
-import com.monitoramento.saude.dto.MedidasDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.monitoramento.saude.dto.MedidasRequestDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
@@ -32,9 +33,6 @@ public class Medidas {
     private BigDecimal medidaBracoDireito;
     private BigDecimal medidaBracoEsquerdo;
 
-    private BigDecimal medidaAntebracoDireito;
-    private BigDecimal medidaAntebracoEsquerdo;
-
     private BigDecimal medidaCoxaDireita;
     private BigDecimal medidaCoxaEsquerda;
 
@@ -48,11 +46,12 @@ public class Medidas {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
+    @JsonIgnore
     private Usuario usuario;
 
     public Medidas() {}
 
-    public Medidas(Long id, LocalDate dataRegistro, BigDecimal pesoAtual, BigDecimal pesoDesejado, BigDecimal medidaCintura, BigDecimal medidaQuadril, BigDecimal medidaTorax, BigDecimal medidaBracoDireito, BigDecimal medidaBracoEsquerdo, BigDecimal medidaAntebracoDireito, BigDecimal medidaAntebracoEsquerdo, BigDecimal medidaCoxaDireita, BigDecimal medidaCoxaEsquerda, BigDecimal medidaPanturrilhaDireita, BigDecimal medidaPanturrilhaEsquerda, BigDecimal altura, LocalDateTime dataAlteracao) {
+    public Medidas(Long id, LocalDate dataRegistro, BigDecimal pesoAtual, BigDecimal pesoDesejado, BigDecimal medidaCintura, BigDecimal medidaQuadril, BigDecimal medidaTorax, BigDecimal medidaBracoDireito, BigDecimal medidaBracoEsquerdo, BigDecimal medidaCoxaDireita, BigDecimal medidaCoxaEsquerda, BigDecimal medidaPanturrilhaDireita, BigDecimal medidaPanturrilhaEsquerda, BigDecimal altura, LocalDateTime dataAlteracao, Usuario usuario) {
         this.id = id;
         this.dataRegistro = dataRegistro;
         this.pesoAtual = pesoAtual;
@@ -62,17 +61,16 @@ public class Medidas {
         this.medidaTorax = medidaTorax;
         this.medidaBracoDireito = medidaBracoDireito;
         this.medidaBracoEsquerdo = medidaBracoEsquerdo;
-        this.medidaAntebracoDireito = medidaAntebracoDireito;
-        this.medidaAntebracoEsquerdo = medidaAntebracoEsquerdo;
         this.medidaCoxaDireita = medidaCoxaDireita;
         this.medidaCoxaEsquerda = medidaCoxaEsquerda;
         this.medidaPanturrilhaDireita = medidaPanturrilhaDireita;
         this.medidaPanturrilhaEsquerda = medidaPanturrilhaEsquerda;
         this.altura = altura;
         this.dataAlteracao = dataAlteracao;
+        this.usuario = usuario;
     }
 
-    public Medidas(MedidasDTO dados) {
+    public Medidas(MedidasRequestDTO dados) {
         dataRegistro = dados.dataRegistro();
         pesoAtual = dados.pesoAtual();
         pesoDesejado = dados.pesoDesejado();
@@ -81,13 +79,12 @@ public class Medidas {
         medidaTorax = dados.medidaTorax();
         medidaBracoDireito = dados.medidaBracoDireito();
         medidaBracoEsquerdo = dados.medidaBracoEsquerdo();
-        medidaAntebracoDireito = dados.medidaAntebracoDireito();
-        medidaAntebracoEsquerdo = dados.medidaAntebracoEsquerdo();
         medidaCoxaDireita = dados.medidaCoxaDireita();
         medidaCoxaEsquerda = dados.medidaCoxaEsquerda();
         medidaPanturrilhaDireita = dados.medidaPanturrilhaDireita();
         medidaPanturrilhaEsquerda = dados.medidaPanturrilhaEsquerda();
         altura = dados.altura();
         dataAlteracao = dados.dataAlteracao();
+        this.usuario = dados.usuario();
     }
 }

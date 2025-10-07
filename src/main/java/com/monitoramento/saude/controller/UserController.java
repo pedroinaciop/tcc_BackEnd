@@ -1,6 +1,7 @@
 package com.monitoramento.saude.controller;
 
 import com.monitoramento.saude.dto.UserDTO;
+import com.monitoramento.saude.model.Medidas;
 import com.monitoramento.saude.service.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
