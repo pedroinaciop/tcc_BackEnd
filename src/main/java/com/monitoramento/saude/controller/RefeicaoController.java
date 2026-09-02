@@ -18,11 +18,19 @@ public class RefeicaoController {
         this.service = service;
     }
 
+<<<<<<< Updated upstream
+=======
+    @Transactional
+>>>>>>> Stashed changes
     @GetMapping("/refeicao/{id}")
     public RefeicaoResponseDTO findRefeicaoById(@PathVariable("id") Long id) {
         return service.findRefeicaoById(id);
     }
 
+<<<<<<< Updated upstream
+=======
+    @Transactional
+>>>>>>> Stashed changes
     @GetMapping("/refeicoes/{id}")
     public List<RefeicaoResponseDTO> findAllRefeicoesById(@PathVariable("id") Long id) {
         return service.findAllRefeicoesById(id);
