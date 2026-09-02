@@ -1,9 +1,7 @@
 package com.monitoramento.saude.controller;
 
-import com.monitoramento.saude.dto.RefeicaoRequestDTO;
 import jakarta.transaction.Transactional;
 import com.monitoramento.saude.dto.UserDTO;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import com.monitoramento.saude.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
