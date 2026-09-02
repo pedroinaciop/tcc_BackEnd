@@ -37,7 +37,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
                                 .anyRequest().permitAll()
-                        //.anyRequest().authenticated()
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
@@ -57,9 +57,8 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of(
-                "http://localhost:3000/",
                 "http://localhost:5173/",
-                "https://monitoramentoalimentar.vercel.app/"));
+                "https://monitoramentoalimentar.inaciotech.com"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
