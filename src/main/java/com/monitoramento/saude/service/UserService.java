@@ -35,10 +35,6 @@ public class UserService implements UserDetailsService {
         return repository.findByEmail(username);
     }
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     public UserDTO getUserById(Long id) {
         var user = repository.findById(id);
         return objectMapper.convertValue(user, UserDTO.class);

@@ -15,10 +15,6 @@ public class UsuarioController {
     @Autowired
     private UserService service;
 
-<<<<<<< Updated upstream
-=======
-    @Transactional
->>>>>>> Stashed changes
     @GetMapping("/usuario/{id}")
     public UserDTO findUserById(@PathVariable Long id) {
         return service.getUserById(id);
